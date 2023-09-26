@@ -5,7 +5,6 @@ from django.contrib.auth import login, authenticate, logout
 from django.db import IntegrityError
 
 from .forms import UserProfileForm
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 def reguserView(request):
@@ -35,4 +34,24 @@ def loginuserView(request):
                 login(request, user)
                 return redirect('home')
         except:
-            return render(request, template_name='./loginuser/loginuser.html', {'form': form, 'error': 'Неверный логин или пароль'})
+            return render(request, './loginuser/loginuser.html', {'form': form, 'error': 'Неверный логин или пароль'})
+
+def logoutView(request):
+    logout(request)
+    return redirect('home')
+
+def profileView(request):
+    user_profile = request.user.userprofile
+    return render(request, './profile/profile.html', {'user_profile': user_profile})
+
+def profileupView(request):
+    user_profile = request.user.userprofile
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Профиль успешно обновлён')
+            return redirect('profile')
+    else:
+        form = UserProfileForm(instance=user_profile)
+        return render(request, 'profile/profileup.html', {'form': form})
