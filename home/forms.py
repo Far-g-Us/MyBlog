@@ -1,7 +1,7 @@
 from django import forms
-from .models import Arta
+from .models import Article
 
-class ArtaUserProfileForm(forms.ModelForm):
+class ArticleUserProfileForm(forms.ModelForm):
     class Meta:
-        model = Arta
+        model = Article
         fields = ['image_profile', 'first_name', 'last_name', 'age', 'about_me']

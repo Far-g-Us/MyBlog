@@ -1,12 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
-class Arta(models.Model):
+
+class Article(models.Model):
     title = models.CharField('Заголовок', max_length=50)
-    desc = models.TextField('Описание')
+    desc = models.TextField('Описание', max_length=120)
     image = models.ImageField('Изображение', upload_to='home/image/')
     date = models.DateField('Дата')
-    url = models.URLField('Доп. источник', blank=True)
-
+    content = models.TextField('Содержание статьи')
+    # url = models.URLField('Доп. источник', blank=True)
+    #
+    views = models.IntegerField(default=0)
+    comments = models.IntegerField(default=0)
+    #
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     class Meta:
         verbose_name_plural = 'Статьи'
