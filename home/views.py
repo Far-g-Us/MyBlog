@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Arta
 
 def homeView(request):
-    articles = Arta.objects.all()
+    articles = Arta.objects.all()[:7]
     return render(request, template_name='home/home.html', context={'articles': articles})
 
 def detail(request,article_id):

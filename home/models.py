@@ -12,5 +12,5 @@ class Arta(models.Model):
         verbose_name_plural = 'Статьи'
 
     def __str__(self):
-        return f"{self.title} | {self.date} | {self.desc.max_length:50}"
+        return f"{self.title} | {self.date}"
 

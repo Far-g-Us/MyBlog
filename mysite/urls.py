@@ -22,4 +22,5 @@ import home.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home.views.homeView, name='home'),
+    path('<int:article_id>/', home.views.detail, name='detail')
 ]
