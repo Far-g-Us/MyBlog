@@ -1,10 +1,8 @@
-{% extends 'base.html' %}
 
-{% block content %}
+
 <h1>Самые популярные статьи</h1>
 <ul>
   {% for article in popular_articles %}
-  <li><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a>({{ article.views }}просмотров)</li>
+  <li><a href="{% url 'detail' article.id %}">{{ article.title }}</a>({{ article.views }}просмотров)</li>
   {% endfor %}
 </ul>
-{% endblock %}

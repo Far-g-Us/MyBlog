@@ -14,15 +14,20 @@
                 <img src="" alt="">
             </div>
             <nav>
-                <a href="" class="link"></a>
-                <a href="" class="link"></a>
-                <a href="" class="link"></a>
+                <a href="{% url 'home' %}" class="link">Главная</a>
+                <a href="#" class="link"></a>
+                <a href="{% url 'profile' %}" class="link">Профиль</a>
             </nav>
             <div class="header_right">
             <!--     Добавить код для проверки на авторизацию   -->
-
+            {% if request.user.username %}
             <!--     Добавить код на авторизацию   -->
-            </div>
+                <a href="{% url 'logout' %}" class="link link-primary">Выход</a>
+            {% else %}
+                <a href="{% url 'reguser' %}" class="link">Регистрация</a>
+                <a href="{% url 'login' %}" class="link link-primary">Вход</a>
+            {% endif %}
+        </div>
         </div>
 
     </header>

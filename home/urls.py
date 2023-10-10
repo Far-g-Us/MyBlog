@@ -1,6 +1,9 @@
 from django.urls import path
-from .views import PopularArticlesListView
+
+from reguser.views import loginuserView
+from .views import PopularArticlesListView, homeView
 
 urlpatterns = [
-    path('popular-articles/', PopularArticlesListView.as_view(), name='popular_articles'),
+    path('', homeView, name='home'),
+    path('popular-articles/', PopularArticlesListView, name='popular_articles'),
 ]

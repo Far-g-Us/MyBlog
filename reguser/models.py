@@ -2,11 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
-    first_name = models.CharField(max_length=50, verbose_name='Имя')
-    last_name = models.CharField(max_length=50, verbose_name='Фамилия')
+    first_name = models.CharField(max_length=50, verbose_name='Имя', null=True)
+    last_name = models.CharField(max_length=50, verbose_name='Фамилия', null=True)
     image_profile = models.ImageField(upload_to='profile/image/', verbose_name='Фото профиля')
     age = models.IntegerField(verbose_name='Возраст')
-    about_me = models.TextField(verbose_name='О себе', blank=True)
+    about_me = models.TextField(verbose_name='О себе', blank=True, null=True)
     ###
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
