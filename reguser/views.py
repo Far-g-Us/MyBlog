@@ -3,9 +3,11 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.db import IntegrityError
-
 from .forms import UserProfileForm
 from django.contrib import messages
+
+from .models import UserProfile
+
 
 def reguserView(request):
     if request.method == 'GET':
@@ -14,7 +16,15 @@ def reguserView(request):
         if request.POST['password1'] == request.POST['password2']:
             try:
                 user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
-                user.vase()
+                user.save()
+                userprofile = UserProfile()
+                userprofile.first_name = ''
+                userprofile.last_name = ''
+                userprofile.age = 0
+                userprofile.image_profile = "image.png"
+                userprofile.about_me = ''
+                userprofile.user = user
+                userprofile.save()
                 login(request, user)
                 return redirect('home')
             except IntegrityError:
@@ -27,14 +37,13 @@ def loginuserView(request):
         form = AuthenticationForm()
         return render(request, 'loginuser/loginuser.html', {'form': form})
     else:
-        form = AuthenticationForm()
+        form = AuthenticationForm(request.POST)
         user = authenticate(username=request.POST['username'], password=request.POST['password'])
         try:
-            if user is not None:
-                login(request, user)
-                return redirect('home')
+            login(request, user)
+            return redirect('home')
         except:
-            return render(request, './loginuser/loginuser.html', {'form': form, 'error': 'Неверный логин или пароль'})
+            return render(request, 'loginuser/loginuser.html', {'form': form, 'error': 'Неверный логин или пароль'})
 
 def logoutView(request):
     logout(request)
