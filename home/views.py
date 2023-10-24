@@ -3,10 +3,16 @@ from .models import Article, Post
 from django.db.models import Q
 
 def homeView(request):
-    articles = Article.objects.all()[:7]
-    queryset = Article.objects.order_by('-views')[:10]
-    return render(request, template_name='home/home.html', context={'articles': articles, 'popular_articles': queryset})
-
+    if method GET
+        articles = Article.objects.all()[:7]
+        queryset = Article.objects.order_by('-views')[:10]
+        return render(request, template_name='home/home.html', context={'articles': articles, 'popular_articles': queryset})
+    if method POST
+        cat = request.POST(name or pk)
+        articles = Article.objects.filter(category=cat)
+        queryset = Article.objects.order_by('-views')[:10]
+        return render(request, template_name='home/home.html', context={'articles': articles, 'popular_articles': queryset})
+        
 def detail(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
     return render(request, 'detail/detail.html', {'article': article})
