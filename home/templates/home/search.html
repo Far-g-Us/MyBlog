@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block main %}
+	{% if error_msg %}
+		<p>{{ error_msg }}</p>
+	{% endif %}
+
+	{% for post in post_list %}
+	...
+	{% empty %}
+		<div class="no-post">Нет статьи, которая не была выпущена в настоящее время!</div>
+    {% endfor %}
+{% endblock main %}
